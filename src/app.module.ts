@@ -1,37 +1,27 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
-import databaseConf from "./common/database/configuration";
-import { TypeOrmConfigService } from "./common/database/typeorm.config.service";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.${process.env.NODE_ENV}.env`,
+      ignoreEnvFile: false,
     }),
-    // TypeOrmModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (configService: ConfigService) => {
-    //     console.log(configService.get('DATABASE_HOST'));
-    //     return {
-    //       type: 'mariadb',
-    //       host: configService.get('DATABASE_HOST'),
-    //       port: configService.get('DATABASE_PORT'),
-    //       username: configService.get('USERNAME'),
-    //       password: configService.get('PASSWORD'),
-    //       database: configService.get('DATABASE'),
-    //       logging: configService.get('LOGGING'),
-    //       entities: [configService.get('ENTITIES')],
-    //       synchronize: configService.get('SYNCHRONIZE'),
-    //     };
-    //   },
-    // }),
-    // TypeOrmModule.forRoot(databaseConf),
-    TypeOrmModule.forRootAsync({ inject: [ConfigService], useClass: TypeOrmConfigService }),
+    TypeOrmModule.forRoot({
+      type: 'mariadb',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT),
+      username: process.env.USERNAME,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+      logging: process.env.LOGGING === 'true',
+      entities: [process.env.ENTITIES],
+      synchronize: process.env.SYNCHRONIZE === 'true',
+    }),
     ProductModule,
     CategoryModule
   ],
