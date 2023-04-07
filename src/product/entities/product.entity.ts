@@ -1,6 +1,7 @@
-import { BaseEntity } from '../../common/entities/base.entity';
+import { BaseEntity } from 'src/common/entities/base.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
-import { Category } from '../../category/entites/category.entity';
+import { Category } from 'src/category/entites/category.entity';
+import { ProductImage } from "src/product-image/entities/product-image.entity";
 
 @Entity()
 export class Product extends BaseEntity {
@@ -14,7 +15,10 @@ export class Product extends BaseEntity {
   @Column({ nullable: false })
   price: string;
 
-  @OneToMany(type => Category, category => category.product)
+  @OneToMany(() => Category, category => category.product)
   categories: Category[];
+
+  @OneToMany(() => ProductImage, productImage => productImage.product)
+  productImages: ProductImage[];
 
 }

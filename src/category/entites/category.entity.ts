@@ -5,7 +5,7 @@ import { Product } from '../../product/entities/product.entity';
 @Entity()
 export class Category extends BaseEntity {
 
-  @ManyToOne(type => Product, product => product.categories)
+  @ManyToOne(() => Product, product => product.categories)
   product: Product;
 
   @Column({ nullable: false })

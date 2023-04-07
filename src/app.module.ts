@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
+import { ProductImageModule } from './product-image/product-image.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { CategoryModule } from './category/category.module';
       synchronize: process.env.SYNCHRONIZE === 'true',
     }),
     ProductModule,
-    CategoryModule
+    CategoryModule,
+    ProductImageModule
   ],
   controllers: [],
   providers: [],
