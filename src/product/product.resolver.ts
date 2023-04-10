@@ -30,4 +30,9 @@ export class ProductResolver {
     return await this.productService.getProducts();
   }
 
+  @Query(() => ProductResponse)
+  async getOneProduct(@Args('productId') productId: number) {
+    return await this.productService.getOneProduct(productId);
+  }
+
 }

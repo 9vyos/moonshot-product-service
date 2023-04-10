@@ -1,7 +1,7 @@
 import { BaseEntity } from 'src/common/entities/base.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Product } from 'src/product/entities/product.entity';
-import { ProductImageRequest } from "../dto/request/product-image.request";
+import { ProductImageRequest } from '../dto/request/product-image.request';
 
 @Entity()
 export class ProductImage extends BaseEntity {

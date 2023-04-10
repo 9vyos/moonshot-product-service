@@ -42,4 +42,8 @@ export class ProductService {
     return await this.productRepository.find({ relations: ['category', 'productImages'] });
   }
 
+  async getOneProduct(productId: number) {
+    return await this.productRepository.findOne({ where: { id: productId }, relations: ['category', 'productImages'] });
+  }
+
 }

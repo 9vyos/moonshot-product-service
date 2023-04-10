@@ -5,6 +5,7 @@ import { Category } from '../../../category/entites/category.entity';
 
 @InputType()
 export class ProductSaveRequest {
+
   @Field(() => String)
   name: string;
   @Field(() => Number)
