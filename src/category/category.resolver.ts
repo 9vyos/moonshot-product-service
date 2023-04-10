@@ -25,8 +25,6 @@ export class CategoryResolver {
     return 'success';
   }
 
-
-
   @Query(() => [CategoryResponse])
   async getCategories() {
     return await this.categoryService.getCategories();

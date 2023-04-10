@@ -13,7 +13,7 @@ export class Product extends BaseEntity {
   description: string;
 
   @Column({ nullable: false })
-  price: string;
+  price: number;
 
   @ManyToOne(() => Category, category => category.products)
   category: Category;

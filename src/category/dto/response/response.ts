@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Category } from '../../entites/category.entity';
 
 @ObjectType()
 export class CategoryResponse {
@@ -23,4 +24,8 @@ export class CategoryResponse {
   createdAt: Date;
   @Field(() => Date)
   updatedAt: Date;
+
+  static of(category: Category) {
+    return new CategoryResponse(category.id, category.name, category.createdAt, category.updatedAt);
+  }
 }
