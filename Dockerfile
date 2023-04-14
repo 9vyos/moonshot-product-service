@@ -6,9 +6,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn
+RUN pnpm
 
-RUN yarn build
+RUN pnpm build
 
 FROM node:16-alpine
 
@@ -20,4 +20,4 @@ ENV NODE_ENV dev
 
 COPY --from=builder /app ./
 
-CMD ["yarn", "start:prod"]
+CMD ["pnpm", "start:prod"]
