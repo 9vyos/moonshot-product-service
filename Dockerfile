@@ -6,8 +6,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pnpm
-
 RUN pnpm build
 
 FROM node:16-alpine
