@@ -1,31 +1,19 @@
-FROM node:16-alpine as builder
+FROM node:16 AS builder
 
-RUN npm i -g pnpm
+WORKDIR /app
 
-ENV NODE_ENV build
+COPY . .
 
-#USER node
-WORKDIR /home/node
+RUN yarn
 
-COPY package*.json ./
-RUN pnpm install
-
-COPY --chown=node:node . .
-RUN pnpm build
-
-# ---
+RUN yarn build
 
 FROM node:16-alpine
 
+WORKDIR /app
+
 ENV NODE_ENV dev
 
-RUN npm i -g pnpm
+COPY --from=builder /app ./
 
-#USER node
-WORKDIR /home/node
-
-COPY --from=builder --chown=node:node /home/node/package*.json ./
-COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
-COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
-
-CMD ["pnpm", "start:prod"]
+CMD ["yarn", "start:prod"]
