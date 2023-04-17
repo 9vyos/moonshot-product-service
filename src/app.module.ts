@@ -27,7 +27,9 @@ import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: true,
+      autoSchemaFile: {
+        federation: 2,
+      },
     }),
     ProductModule,
     CategoryModule,
