@@ -8,6 +8,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
+import { getConfig, getDataSourceConfig } from "./common/configuration";
 
 @Module({
   imports: [
@@ -18,29 +19,9 @@ import { DataSource } from 'typeorm';
     }),
     TypeOrmModule.forRootAsync(
       {
-        useFactory: () => ({
-          type: 'mariadb',
-          host: process.env.DATABASE_HOST,
-          port: parseInt(process.env.DATABASE_PORT),
-          username: process.env.USERNAME,
-          password: process.env.PASSWORD,
-          database: process.env.DATABASE,
-          logging: process.env.LOGGING === 'true',
-          entities: [process.env.ENTITIES],
-          synchronize: process.env.SYNCHRONIZE === 'true',
-        }),
-        async dataSourceFactory() {
-          return addTransactionalDataSource(new DataSource({
-            type: 'mariadb',
-            host: process.env.DATABASE_HOST,
-            port: parseInt(process.env.DATABASE_PORT),
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-            database: process.env.DATABASE,
-            logging: process.env.LOGGING === 'true',
-            entities: [process.env.ENTITIES],
-            synchronize: process.env.SYNCHRONIZE === 'true',
-          }));
+        useFactory: () => getConfig(),
+        dataSourceFactory: async function () {
+          return addTransactionalDataSource(new DataSource(getDataSourceConfig()));
         },
       }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
