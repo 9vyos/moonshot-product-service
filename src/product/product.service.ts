@@ -7,6 +7,7 @@ import { Category } from '../category/entites/category.entity';
 import { ProductImage } from '../product-image/entities/product-image.entity';
 import { ProductResponse } from './dto/response/response';
 import { ProductUpdateRequest } from './dto/request/update.request';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class ProductService {
@@ -19,6 +20,7 @@ export class ProductService {
     private readonly productImageRepository: Repository<ProductImage>,
   ) {}
 
+  @Transactional()
   async saveProduct(request: ProductSaveRequest) {
     const category = await this.categoryRepository.findOneBy({ id: request.categoryId });
     const product = await this.productRepository.save(request.toEntity(category));
