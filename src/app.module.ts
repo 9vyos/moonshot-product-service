@@ -8,7 +8,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
-import { getConfig, getDataSourceConfig } from "./common/configuration";
+import { getConfig, getDataSourceConfig } from './common/database/configuration';
 
 @Module({
   imports: [
