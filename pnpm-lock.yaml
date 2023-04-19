@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@apollo/server':
+    specifier: ^4.6.0
+    version: 4.6.0(graphql@16.6.0)
   '@nestjs/apollo':
     specifier: ^11.0.4
     version: 11.0.4(@apollo/server@4.6.0)(@apollo/subgraph@2.4.1)(@nestjs/common@9.3.8)(@nestjs/core@9.3.8)(@nestjs/graphql@11.0.4)(graphql@16.6.0)
