@@ -13,7 +13,7 @@ export class CategoryService {
 
   async saveCategory(request: CategoryRequest) {
     const duplicate = this.categoryRepository.findOneBy( { name: request.name });
-    if (duplicate) throw new HttpException('이미 존재하는 카테고리입니다.', 400);
+    if (!duplicate) throw new HttpException('이미 존재하는 카테고리입니다.', 400);
     return await this.categoryRepository.save(request.toEntity());
   }
 
