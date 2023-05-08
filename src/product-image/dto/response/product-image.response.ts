@@ -1,10 +1,10 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { ProductImage } from "../../entities/product-image.entity";
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { ProductImage } from 'src/product-image/entities/product-image.entity';
 
 @ObjectType()
 export class ProductImageResponse {
 
-  @Field(() => Number)
+  @Field(() => Int)
   id: number;
   @Field(() => String)
   imageUrl: string;
