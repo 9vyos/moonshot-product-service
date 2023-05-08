@@ -31,8 +31,13 @@ export class ProductService {
     return ProductResponse.of(category, product, productImages);
   }
 
+  @Transactional()
   async updateProduct(productId: number, request: ProductUpdateRequest) {
-    return await this.productRepository.update({ id: productId }, request);
+    const product: Product = await this.productRepository
+      .findOne({ where: { id: productId }, relations: ['category', 'productImages'] });
+    product.update(request);
+    await this.productRepository.save(product);
+    return product;
   }
 
   async deleteProduct(productId: number) {
@@ -41,11 +46,13 @@ export class ProductService {
   }
 
   async getProducts() {
-    return await this.productRepository.find({ relations: ['category', 'productImages'] });
+    return await this.productRepository
+      .find({ relations: ['category', 'productImages'] });
   }
 
   async getOneProduct(productId: number) {
-    return await this.productRepository.findOne({ where: { id: productId }, relations: ['category', 'productImages'] });
+    return await this.productRepository
+      .findOne({ where: { id: productId }, relations: ['category', 'productImages'] });
   }
 
 }

@@ -23,10 +23,10 @@ export class GraphqlLogger implements NestInterceptor {
       .pipe(
         tap(json => {
           this.logger.log(`RequestArgs: ${requestArgs} After: ${Date.now() - now}ms`);
-          this.logger.log(`Response: ${JSON.stringify(json).substring(0, 150)}...`);
+          this.logger.log(`Response: ${JSON.stringify(json)?.substring(0, 150)}...`);
         }),
         catchError(err => {
-          this.logger.error(`RequestArgs: ${requestArgs.substring(0, 150)}... After: ${Date.now() - now}ms`);
+          this.logger.error(`RequestArgs: ${requestArgs?.substring(0, 150)}... After: ${Date.now() - now}ms`);
           this.logger.error(`ErrorMessage: ${err.message}...`);
           throw err;
         }),

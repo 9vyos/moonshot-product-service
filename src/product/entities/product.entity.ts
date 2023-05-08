@@ -2,6 +2,7 @@ import { BaseEntity } from 'src/common/entities/base.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from 'src/category/entites/category.entity';
 import { ProductImage } from 'src/product-image/entities/product-image.entity';
+import { ProductUpdateRequest } from "../dto/request/update.request";
 
 @Entity()
 export class Product extends BaseEntity {
@@ -20,5 +21,11 @@ export class Product extends BaseEntity {
 
   @OneToMany(() => ProductImage, productImage => productImage.product)
   productImages: ProductImage[];
+
+  update(request: ProductUpdateRequest) {
+    this.name = request.name;
+    this.description = request.description;
+    this.price = request.price;
+  }
 
 }
