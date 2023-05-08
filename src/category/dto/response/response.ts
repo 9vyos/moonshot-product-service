@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Category } from '../../entites/category.entity';
 
 @ObjectType()
@@ -16,7 +16,7 @@ export class CategoryResponse {
     this.updatedAt = updatedAt;
   }
 
-  @Field(() => Number)
+  @Field(() => Int)
   id: number;
   @Field(() => String)
   name: string;

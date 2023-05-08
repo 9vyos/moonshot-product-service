@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { CategoryResponse } from '../../../category/dto/response/response';
 import { ProductImageResponse } from '../../../product-image/dto/response/product-image.response';
 import { Category } from '../../../category/entites/category.entity';
@@ -8,11 +8,11 @@ import { ProductImage } from '../../../product-image/entities/product-image.enti
 @ObjectType()
 export class ProductResponse {
 
-  @Field(() => Number)
+  @Field(() => Int)
   id: number;
   @Field(() => String)
   name: string;
-  @Field(() => Number)
+  @Field(() => Int)
   price: number;
   @Field(() => String)
   description: string;
